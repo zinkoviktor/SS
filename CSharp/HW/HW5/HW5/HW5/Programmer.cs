@@ -8,7 +8,12 @@ namespace HW5
 {
     class Programmer : IDeveloper
     {
-        public string Tool { get; set; }
+        private string language;
+        public string Tool
+        {
+            get { return language; }
+            set { language = value; }
+        }
         
         public void Create()
         {
