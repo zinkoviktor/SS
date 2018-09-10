@@ -16,9 +16,26 @@ namespace HW6
             #endregion
             #region HW6.2
             int j = 0;
+            int start = 1;
+            int end = 100;
             while (j < 10)
             {
-                Console.WriteLine(ReadNumber(1, 100));                
+                try
+                {
+                    Console.WriteLine("range [{0}...{1}]", start, end);
+                    if (start + 1 != end)
+                    {
+                        start = ReadNumber(start, end);
+                    }
+                    else
+                    {
+                        break;
+                    }                    
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }                
                 j++;
             }
             #endregion
@@ -29,14 +46,26 @@ namespace HW6
         static void PhoneBook()
         {
             Dictionary<string, string> PhoneBook = new Dictionary<string, string>();
-            string name = "name";
-            string[] phones = File.ReadAllLines("phones.txt");
 
-            for (int i = 0; i < 9; i++)
+             string record;
+
+            using (StreamReader sr = new StreamReader("phones.txt"))
             {
-                PhoneBook.Add(name + (i + 1), phones[i]);
+                for (int i = 0; i < 9; i++)
+                {
+                    record = sr.ReadLine();
+                    PhoneBook.Add(record.Split('/')[1], record.Split('/')[0]);
+                }
             }
 
+            using (StreamWriter sw = new StreamWriter("Phones2.txt"))
+            {
+                foreach(string phoneNumber in PhoneBook.Values)
+                {
+                    sw.WriteLine(phoneNumber);
+                }
+            }
+            
             Console.Write("Enter name:");
             string searchName = Console.ReadLine();
             if (PhoneBook.ContainsKey(searchName))
@@ -47,14 +76,27 @@ namespace HW6
             {
                 Console.WriteLine("Error! Name not found");
             }
-
-            if (!File.Exists("New.txt"))
+            List<string> keys = new List<string>();
+            
+            foreach (var phoneRecord in PhoneBook)
             {
-                foreach (KeyValuePair<string, string> number in PhoneBook)
+                if (phoneRecord.Value.StartsWith("80"))
                 {
-                    File.AppendAllText("New.txt", "+3" + number.Value + "\r\n");
+                    keys.Add(phoneRecord.Key);   
                 }
-            } 
+            }
+            foreach (string key in keys)
+            {
+                PhoneBook[key] = "+3" + PhoneBook[key];
+            }
+
+            using (StreamWriter sw = new StreamWriter("New.txt"))
+            {
+                foreach (string phoneNumber in PhoneBook.Values)
+                {
+                    sw.WriteLine(phoneNumber);
+                }
+            }
         }
         #endregion
         #region HW6.2
@@ -62,23 +104,15 @@ namespace HW6
         {
             int number = 0;
             Console.Write("Enter number:");
-            try
+            number = int.Parse(Console.ReadLine());
+            if (number > start && number < end)
             {
-                number = int.Parse(Console.ReadLine());
-                if (number > start && number < end)
-                {
-                    return number;
-                }
-                else
-                {
-                    throw new OverflowException();                    
-                }
+                return number;
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine("Error! {0}", e.Message);
+                throw new OverflowException();
             }            
-            return 0;            
         }
         #endregion
     }
