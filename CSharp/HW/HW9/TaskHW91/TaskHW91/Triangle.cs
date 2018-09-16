@@ -6,40 +6,65 @@ using System.Threading.Tasks;
 
 namespace TaskHW91
 {
-    class Triangle
+    public class Triangle
     {
         private Point vertex1;
         private Point vertex2;
         private Point vertex3;
-        
 
-        public Triangle() { }
+        private double sideA;
+        private double sideB;
+        private double sideC;
+
+        public Triangle() {
+            vertex1 = new Point();
+            vertex2 = new Point();
+            vertex3 = new Point();
+        }
+
         public Triangle(Point vertex1, Point vertex2, Point vertex3)
         {
             this.vertex1 = vertex1;
             this.vertex2 = vertex2;
             this.vertex3 = vertex3;
-        }
-        public List<Point> Points() { return new List<Point>() {vertex1, vertex2, vertex3}; }
-        
-        
-        public double Perimetr()
-        {
-            return Math.Round(vertex1.Distance(vertex2)+vertex2.Distance(vertex3)+vertex3.Distance(vertex1), 2);
+            if (Square() == 0)
+            {
+                throw new Exception("Error Point!");
+            }
         }
 
-        public double Square()
+        public List<Point> Points()
         {
-            double p = Perimetr()/2;
-            return Math.Round(Math.Sqrt(p * (p - vertex1.Distance(vertex2)) * (p - vertex2.Distance(vertex3)) * (p - vertex3.Distance(vertex1))), 2);
+            return new List<Point>() {vertex1, vertex2, vertex3};
         }
-        public void Print()
+        
+        private void CalcDistance()
+        {
+            sideA = vertex1.Distance(vertex2);
+            sideB = vertex2.Distance(vertex3);
+            sideC = vertex3.Distance(vertex1);
+        }
+
+        public double Perimetr()
+        {
+            CalcDistance();
+            return Math.Round(sideA + sideB + sideC, 2);
+        }
+        public double Square()
+        {            
+            double p = Perimetr()/2;
+            return Math.Round(Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC)), 2);
+        }
+
+        public bool Print()
         {
             Console.WriteLine("Triangle: {0}, {1}, {2}", vertex1, vertex2, vertex3);
             Console.WriteLine("Perimetr = {0}", Perimetr());
-            Console.WriteLine("Square = {0}", Square());
+            Console.WriteLine("Square = {0}", Square());            
+            return true;
         }
-        public double MinDistences(Point p) {
+
+        public double DistenceTo(Point p) {
             List <double> vertexDis = new List<double>() { vertex1.Distance(p), vertex2.Distance(p), vertex3.Distance(p) };
             return vertexDis.Min();
         }

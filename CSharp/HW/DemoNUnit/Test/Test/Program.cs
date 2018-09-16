@@ -12,6 +12,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
+           Calc calc = new Calc();
+           Console.WriteLine(calc.Add(2, 2));
            Console.ReadKey();
         }        
     }    

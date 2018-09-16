@@ -29,7 +29,7 @@ namespace Test
             [Test]
             public void AddTest()
             {
-                Assert.AreEqual(calc.Add(154, 200), 154 + 200, "154 + 200 = 354");
+                Assert.AreEqual(calc.Add(154, 200), 154 + 201, "154 + 200 != 354");
                 Assert.AreNotEqual(calc.Add(154, 200), 154 - 200, "154 - 200 = 354");
             }
             [Test]
@@ -104,6 +104,17 @@ namespace Test
                 StreamReader stream2 = new StreamReader(@"e:/2.txt");
                 FileAssert.AreEqual(stream1.BaseStream, stream2.BaseStream);                
             }            
+        }
+        [TestFixture]
+        public class ListMapped
+        {
+            [Test]
+            public void ListMappedRun()
+            {
+                int[] lengths = new int[] { 1, 2, 3 };
+                string[] strings = new string[] { "a", "ab", "abcd" };
+                Assert.That(new ListMapper(strings).Property("Length"), Is.EqualTo(lengths));
+            }
         }
     }
 }

@@ -8,9 +8,7 @@ namespace Test
 {
     class Calc
     {
-        private double num1;
-        private double num2;
-        public Calc() { num1 = 0; num2 = 0; }
+        public Calc() { }
         
         public double Add(double num1, double num2)
         {
