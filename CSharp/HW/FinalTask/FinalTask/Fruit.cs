@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace FinalTask
     class Fruit
     {
         //Colors in HEX
-        enum Colors 
+        protected enum Colors 
         {           
             Black = 0x0,
             Red = 0xFF,
@@ -23,26 +24,31 @@ namespace FinalTask
             None = -1
         }
 
-        private string name; //Fruit name, default null
-        private Colors color = Colors.None; //Fruit color in HEX from Enum Colors
-        
+        protected string name; //Fruit name, default null
+        protected Colors color = Colors.None; //Fruit color in HEX from Enum Colors
+
+        protected NumberFormatInfo nfi = new NumberFormatInfo(); 
+
         public string Name
         {
             get
             {
                 return name;
-            }                
+            }            
         }
         public string Color
         {
             get
             {
                 return color.ToString();
-            }
+            }            
         }
 
         //Constructors
-        public Fruit() { }
+        public Fruit()
+        {
+
+        }
         public Fruit(string name, string color)
         {
             this.name = name;
@@ -71,20 +77,6 @@ namespace FinalTask
             }
         }
 
-        /// <summary>Prints name and color into console</summary>
-        //If fruit is empty, writes message
-        virtual public void Print()
-        {
-            if (name != null)
-            {
-                Console.WriteLine("Fruit name = {0}, color = {1}", Name, Color);
-            }            
-            else
-            {
-                Console.WriteLine("Empty fruit");
-            }
-        }
-
         /// <summary>Inputs name and color from file</summary>
         /// <param name="sr">Used to reads from file</param>
         virtual public void Input(StreamReader sr)
@@ -96,12 +88,26 @@ namespace FinalTask
             {
                 line = sr.ReadLine();
                 values = line.Split('/');
-                if (lineValidator(values))
+                if (doesValidValues(values))
                 {
                     name = values[1];
                     color = parseToColorsKey(values[2]);
                 }
-            }                      
+            }
+        }
+
+        /// <summary>Prints name and color into console</summary>
+        //If fruit is empty, writes message
+        virtual public void Print()
+        {
+            if (name != null)
+            {
+                Console.Write("\nFruit name = {0}, color = {1}", Name, Color);
+            }            
+            else
+            {
+                Console.WriteLine("Empty fruit");
+            }
         }
 
         /// <summary>Writes name and color into file</summary>
@@ -114,14 +120,8 @@ namespace FinalTask
             }
         }
 
-        //Changes first string character to UpperCase
-        private string firstCharToUpper(string str)
-        {
-            return char.ToUpper(str[0]) + str.Substring(1);
-        }
-
         //Parses string color name to the enum keyword
-        private Colors parseToColorsKey(string color)
+        protected Colors parseToColorsKey(string color)
         {
             try
             {
@@ -136,16 +136,16 @@ namespace FinalTask
 
         /// <summary>???</summary>
         /// <param name="str">???</param>        
-        public bool lineValidator(string[] str)
-        {
+        public bool doesValidValues(string[] values)
+        {            
             try
             {
-                int key = int.Parse(str[0]);
-                string name = str[1];
-                string color = str[2];
+                int key = int.Parse(values[0]);
+                string name = values[1];
+                string color = values[2];
                 if (key == 2)
                 {
-                    double vitCLvl = double.Parse(str[3]);
+                    double vitCLvl = parseToDouble(values[3]);                                    
                 }
                 return true;
             }
@@ -156,9 +156,28 @@ namespace FinalTask
             }
         }
 
+        /// <summary>Parses string to decimal number, supported two separator "," and "."</summary>
+        public double parseToDouble(string str)
+        {
+            nfi.NumberDecimalSeparator = ".";
+            double result;
+            if (double.TryParse(str,out result))
+            {
+                return result;
+            }
+            else
+            {
+                return double.Parse(str, nfi);
+            }
+        }
         public override string ToString()
         {
             return name;
+        }
+        //????????
+        public string firstCharToUpper(string str)
+        {
+            return char.ToUpper(str[0]) + str.Substring(1);
         }
 
     }
