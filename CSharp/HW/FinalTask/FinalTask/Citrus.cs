@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace FinalTask
 {
-    class Citrus : Fruit
+    [Serializable]
+    public class Citrus : Fruit
     {
         private double vitCLvl;
         public double VitaminCLevel
@@ -15,6 +16,10 @@ namespace FinalTask
             get
             {
                 return vitCLvl;
+            }
+            set
+            {
+                vitCLvl = value;
             }
         }
 
@@ -44,7 +49,7 @@ namespace FinalTask
                     if (vitCLvl <= 0)
                     {
                         Console.Write("Enter vitamin C level: ");
-                        vitCLvl = parseToDouble(Console.ReadLine());
+                        vitCLvl = Tools.ParseToDouble(Console.ReadLine());
                     }
                 }
                
@@ -60,7 +65,7 @@ namespace FinalTask
                 Console.Write("Name = {0}", name);
                 Console.WriteLine("Color = {0}", color);
                 Console.Write("Enter vitamin C level: ");
-                vitCLvl = parseToDouble(Console.ReadLine());
+                vitCLvl = Tools.ParseToDouble(Console.ReadLine());
             }
             else
             {
@@ -80,11 +85,11 @@ namespace FinalTask
             {
                 line = sr.ReadLine();
                 values = line.Split('/');
-                if (doesValidValues(values))
+                if (Tools.DoesValuesValid(values))
                 {
-                    name = values[1];
-                    color = parseToColorsKey(values[2]);
-                    vitCLvl = parseToDouble(values[3]);
+                    name = values[0];
+                    color = parseToColorsKey(values[1]);
+                    vitCLvl = Tools.ParseToDouble(values[2]);
                 }
             }
         }
@@ -108,6 +113,11 @@ namespace FinalTask
             {
                 writer.WriteLine("2/" + Name + "/" + Color + "/" + vitCLvl);
             }
+        }
+
+        public override string ToString()
+        {
+            return Color + " " + Name + " Vitamin C = " + VitaminCLevel;
         }
     }
 }

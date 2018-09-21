@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFruit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Fruit>
+    <Name>Apple</Name>
+    <Color>Green</Color>
+  </Fruit>
+  <Fruit>
+    <Name>Blueberrie</Name>
+    <Color>Blue</Color>
+  </Fruit>
+  <Fruit>
+    <Name>Orange</Name>
+    <Color>Orange</Color>
+  </Fruit>
+  <Fruit>
+    <Name>Banana</Name>
+    <Color>Yellow</Color>
+  </Fruit>
+</ArrayOfFruit>

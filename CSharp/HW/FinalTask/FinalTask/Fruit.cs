@@ -5,43 +5,55 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FinalTask
 {
-    class Fruit
+    
+    
+    [XmlInclude(typeof(Citrus))]
+    public class Fruit : IFruits
     {
-        //Colors in HEX
+        //Colors in HEX        
         protected enum Colors 
-        {           
+        {            
             Black = 0x0,
             Red = 0xFF,
-            Green = 0xFF00,
+            Green = 0xFF00,            
             Yellow = 0xFFFF,
-            Blue = 0xFF0000,
+            Blue = 0xFF0000,            
             Magenda = 0xFF00FF,
+            Orange = 0xFF8000,
             Cyan = 0xFFFF00,
             White = 0xFFFFFF,
             None = -1
         }
-
-        protected string name; //Fruit name, default null
-        protected Colors color = Colors.None; //Fruit color in HEX from Enum Colors
-
-        protected NumberFormatInfo nfi = new NumberFormatInfo(); 
-
+       
+        protected string name; //Fruit name, default null       
+        protected Colors color = Colors.None; //Fruit color in HEX from Enum Colors         
+               
         public string Name
         {
             get
             {
                 return name;
-            }            
+            }
+            set
+            {
+                name = value;
+            }
         }
+        
         public string Color
         {
             get
             {
                 return color.ToString();
-            }            
+            }
+            set
+            {
+                color = parseToColorsKey(value);
+            }
         }
 
         //Constructors
@@ -63,18 +75,13 @@ namespace FinalTask
             {
                 Console.Write("Enter name: ");
                 name = Console.ReadLine();
-            }
-            else if (color.Equals(Colors.None))
-            {
-                Console.WriteLine("Name = {0}", Name);
-                Console.Write("Enter color: ");
-                color = parseToColorsKey(Console.ReadLine());
-            }
-            else
-            {
-                Console.WriteLine("Cannot change created Fruit!");
-                Print();
-            }
+
+                if (color.Equals(Colors.None))
+                {                   
+                    Console.Write("Enter color: ");
+                    color = parseToColorsKey(Console.ReadLine());
+                }
+            }            
         }
 
         /// <summary>Inputs name and color from file</summary>
@@ -88,10 +95,10 @@ namespace FinalTask
             {
                 line = sr.ReadLine();
                 values = line.Split('/');
-                if (doesValidValues(values))
+                if (Tools.DoesValuesValid(values))
                 {
-                    name = values[1];
-                    color = parseToColorsKey(values[2]);
+                    name = values[0];
+                    color = parseToColorsKey(values[1]);
                 }
             }
         }
@@ -125,7 +132,7 @@ namespace FinalTask
         {
             try
             {
-                return (Colors)Enum.Parse(typeof(Colors), firstCharToUpper(color));
+                return (Colors)Enum.Parse(typeof(Colors), Tools.FirstCharToUpper(color));
             }
             catch(Exception e)
             {
@@ -134,50 +141,15 @@ namespace FinalTask
             }
         }
 
-        /// <summary>???</summary>
-        /// <param name="str">???</param>        
-        public bool doesValidValues(string[] values)
-        {            
-            try
-            {
-                int key = int.Parse(values[0]);
-                string name = values[1];
-                string color = values[2];
-                if (key == 2)
-                {
-                    double vitCLvl = parseToDouble(values[3]);                                    
-                }
-                return true;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-        }
-
-        /// <summary>Parses string to decimal number, supported two separator "," and "."</summary>
-        public double parseToDouble(string str)
-        {
-            nfi.NumberDecimalSeparator = ".";
-            double result;
-            if (double.TryParse(str,out result))
-            {
-                return result;
-            }
-            else
-            {
-                return double.Parse(str, nfi);
-            }
-        }
         public override string ToString()
         {
-            return name;
+            return Color + " " + Name;
         }
-        //????????
-        public string firstCharToUpper(string str)
+        public override bool Equals(object o)
         {
-            return char.ToUpper(str[0]) + str.Substring(1);
+            var other = o as Fruit;
+            if (other == null) { return false; }
+            return Name == other.Name && Color == other.Color;
         }
 
     }
