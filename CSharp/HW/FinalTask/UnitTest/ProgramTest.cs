@@ -27,7 +27,7 @@ namespace UnitTest
 
             //Act
             List<Fruit> actual = Program.PrintSortFruitByParamets(fruits, "Name", false);
-
+            
             //Assert
             CollectionAssert.AreEqual(expected, actual);
         }

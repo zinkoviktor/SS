@@ -32,6 +32,7 @@ namespace WebDriver_basics
                 SingUp singUp = loginPage.OpenSingUp();
                 mainPage = singUp.createAnAccount(login, password, email);
             }
+         
             mainPage.choseJQuery();
             driver.SwitchTo().Frame("result");
             string color = driver.FindElement(By.Id("banner-message")).GetCssValue("background");
