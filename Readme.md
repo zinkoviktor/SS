@@ -7,19 +7,19 @@
 ## Links
 
 <h2>C# basics and OOP</h2>
-<h3>Home Works</h3>h3>
-1. [Introduction](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW1)
-2. [Type system. Value types](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW2)
-3. [C# Statetments](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW3)
-4. [Class Object. Class declaration](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW4)
-5. [Interfaces. C# Collections. Generic collections](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW5)
-6. [Exception handling. Working with files in C#](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW6)
-7. [Inheritance in C#. Abstract class. Polimorphism](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW7)
-8. [LINQ. Class String](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW8)
-9. [Composition. Unit testing](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW9)
-10. [Delegates and event handlers in .NET](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW10)
-11. [Serialization in .Net](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW11)
-12. [Project Demo](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/FinalTask)
+<h3>Home Works</h3>
+1. [Introduction](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW1);
+2. [Type system. Value types](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW2);
+3. [C# Statetments](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW3);
+4. [Class Object. Class declaration](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW4);
+5. [Interfaces. C# Collections. Generic collections](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW5);
+6. [Exception handling. Working with files in C#](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW6);
+7. [Inheritance in C#. Abstract class. Polimorphism](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW7);
+8. [LINQ. Class String](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW8);
+9. [Composition. Unit testing](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW9);
+10. [Delegates and event handlers in .NET](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW10);
+11. [Serialization in .Net](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW11);
+12. [Project Demo](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/FinalTask);
 
 **Demo**
 - [ArrayList](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/DemoArrayList).
