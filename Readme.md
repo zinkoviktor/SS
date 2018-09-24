@@ -28,4 +28,4 @@
 <h3>Test Automation</h3>
 
 - [WebDriver](https://github.com/zinkoviktor/SS/tree/master/AQC/WebDriver_basics/WebDriver_basics).
-- [NUnit](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/DemoNUnit)
+- [OpenCart_smoke](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/DemoNUnit)
