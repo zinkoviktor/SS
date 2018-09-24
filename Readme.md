@@ -7,9 +7,7 @@
 ## Links
 
 <h3>C# basics and OOP</h3>
-<h3>Home Works</h3>
-
-
+**Home Works**
 1. [Introduction](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW1)
 2. [Type system. Value types](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW2)
 3. [C# Statetments](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/HW3)
@@ -27,7 +25,7 @@
 - [ArrayList](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/DemoArrayList).
 - [NUnit](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/DemoNUnit)
 
-<h2>Test Automation</h2>
+<h3>Test Automation</h3>
 
 - [WebDriver](https://github.com/zinkoviktor/SS/tree/master/AQC/WebDriver_basics/WebDriver_basics).
 - [NUnit](https://github.com/zinkoviktor/SS/tree/master/CSharp/HW/DemoNUnit)
