@@ -29,3 +29,4 @@
 
 - [WebDriver](https://github.com/zinkoviktor/SS/tree/master/AQC/WebDriver_basics/WebDriver_basics).
 - [OpenCart_smoke](https://github.com/zinkoviktor/SS/tree/master/AQC/Opencart_Smoke)
+- [OpenCart_AddressBookTest](https://github.com/zinkoviktor/SS/tree/master/AQC/OpenCart_AddressBookTest)
