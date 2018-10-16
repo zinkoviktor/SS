@@ -11,7 +11,7 @@ namespace OpenCart_AddressBookTest
     public class UnitTest1
     {
         //const string TEST_SITE_URL = "http://atqc-shop.epizy.com";
-        const string TEST_SITE_URL = "http://localhost";
+        const string TEST_SITE_URL = "http://40.118.125.245/";
         const string PAGE_NAME = "Account";
         const string EMAIL = "zinko@mail.com";
         const string PASSWORD = "querty";
@@ -120,7 +120,7 @@ namespace OpenCart_AddressBookTest
                     By.XPath("//tbody/tr[last()]/td[contains(@class, 'text-left')]")).Text;
             
             //Save new Address
-            newAddress = expected;
+            newAddress = actual;
             
             //Assert
             Assert.AreEqual(expected, actual, "TEST CASE FAILED");//Verify that correct text displayed in the table
@@ -139,23 +139,9 @@ namespace OpenCart_AddressBookTest
             //Find address table
             IWebElement addressTable = driver.FindElement(
                     By.CssSelector(".table.table-bordered.table-hover"));
-            //Get address table lenght            
-            int addressTableLenght = addressTable.FindElements(By.XPath("//tbody/tr")).Count;
-            int i = 1;
-            int newAddressPossition = 0;
-            string temp;
-            do
-            {
-                temp = addressTable.FindElement(By.XPath($"//tbody/tr[{i}]/td[contains(@class, 'text-left')]")).Text;
-                if (temp.Equals(newAddress))
-                {
-                   newAddressPossition = i;
-                } 
-                i++;                
-            }
-            while (newAddressPossition < 1 && i < addressTableLenght);
-
-            IWebElement editAddressInTable = addressTable.FindElement(By.XPath($"//tbody/tr[{newAddressPossition}]"));
+            
+            //Find last address           
+            IWebElement editAddressInTable = driver.FindElement(By.XPath("//tbody/tr[last()]"));
 
             //"Edit Address" button in first table row
             editAddressInTable.FindElement(By.LinkText("Edit")).Click();
@@ -189,67 +175,32 @@ namespace OpenCart_AddressBookTest
 
             //Act
             //Get text from Address table            
-            string actual = editAddressInTable.FindElement(By.ClassName("text-left")).Text;
-
+            string actual = driver.FindElement(By.XPath("//tbody/tr[last()]/td")).Text;
+            newAddress = actual;
+            
             //Assert
             Assert.AreEqual(expected, actual, "TEST 2 FAILED!");//Verify that new text displayed in the table
         }
 
-        //[TestCase("Roman", "Zinko", "Grinchenko, 7", "Lviv", "220"/*Ukraine*/, "3493"/*L'vivs'ka Oblast'*/)]
-        public void Test3DeleteLastAddressTest(string firstName, string lastName, string address1,
-                                            string city, string country, string region)
+        [Test]
+        public void Test3DeleteLastAddressTest()
         {
-            /***///CreateNewAddressTest(firstName, lastName, address1, city, country, region, "ffff");
-
-            //Arrange   
-
-            //Click on "Address Book" link
-            driver.FindElement(By.CssSelector("#column-right a[href$='/address']")).Click();
-            //Verify that "Address Book" page is opened 
-            driver.FindElement(By.CssSelector(".breadcrumb a[href$='/address']"));
-
-            //Add new Address
+            //Arrange 
             //Save primary "Address Book" table length
-            int expected = driver.FindElements(By.CssSelector("#content tbody")).Count;
+            int expected = driver.FindElements(By.XPath("//tbody/tr")).Count;
 
-            driver.FindElement(By.CssSelector("#content .buttons .pull-right>a")).Click();
-            //Verify that "New Address" page is opened            
-            driver.FindElement(By.CssSelector(".breadcrumb a[href*='/address/add']"));
-            //Fill all required fields with data
-            driver.FindElement(By.Id("input-firstname")).SendKeys(firstName);
-            driver.FindElement(By.Id("input-lastname")).SendKeys(lastName);
-            driver.FindElement(By.Id("input-address-1")).SendKeys(address1);
-            driver.FindElement(By.Id("input-city")).SendKeys(city);
-            //Select Country
-            new SelectElement(driver.FindElement(By.Id("input-country"))).SelectByValue(country);
-            //Loading regions
-            IWait<IWebDriver> wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(
-                By.CssSelector(".fa.fa-circle-o-notch.fa-spin")));
-            //Select Region
-            new SelectElement(driver.FindElement(By.Id("input-zone"))).SelectByValue(region);
-            //Click on "Continue" button
-            driver.FindElement(By.CssSelector("form input[type ='submit']")).Click();
-            //Verify that Address Book page is opened 
-            driver.FindElement(By.CssSelector(".breadcrumb a[href$='/address']"));
-
-            int tbodyRowsEnd = driver.FindElements(By.CssSelector("#content tbody")).Count;
-
-            if (tbodyRowsEnd > expected)
+            if (expected > 1)
             {
-                driver.FindElement(By.XPath("//tbody/tr[last()]]")).FindElement(By.ClassName("#btn-danger")).Click();
+                IWebElement deleteAddressInTable = driver.FindElement(By.XPath("//tbody/tr[last()]"));
+                deleteAddressInTable.FindElement(By.LinkText("Delete")).Click();
             }
-            else
-            {
-                throw new Exception();
-            }
-
+            
             //Act
             //Save "Address Book" table length, after deleting added address
-            int actual = driver.FindElements(By.CssSelector("#content tbody")).Count;
+            int actual = driver.FindElements(By.XPath("//tbody/tr")).Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);//Verify that the address deleted from the table
+            Assert.Greater(expected, actual);//Verify that the address deleted from the table
 
         }
 
