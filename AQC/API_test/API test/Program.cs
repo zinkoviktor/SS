@@ -11,7 +11,9 @@ namespace API_test
     {
         static void Main(string[] args)
         {
-            
+            Application application = new Application();
+            application.PrintHelpInfo();
+            Console.ReadKey();
         }
     }
 }
